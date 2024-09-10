@@ -29,7 +29,7 @@ test("Não deve criar uma conta de passageiro com cpf inválido", async function
   const signupResponse = await axios.post("http://localhost:3000/signup", input);
   const signupData = signupResponse.data
   expect(signupResponse.status).toBe(422)
-  expect(signupData.message).toBe(-1)
+  expect(signupData.message).toBe("Invalid CPF")
 });
 
 test("Não deve criar uma conta de passageiro com nome inválido", async function () {
@@ -43,7 +43,7 @@ test("Não deve criar uma conta de passageiro com nome inválido", async functio
   const signupResponse = await axios.post("http://localhost:3000/signup", input);
   const signupData = signupResponse.data
   expect(signupResponse.status).toBe(422)
-  expect(signupData.message).toBe(-3)
+  expect(signupData.message).toBe("Invalid name")
 });
 
 test("Não deve criar uma conta de passageiro com email inválido", async function () {
@@ -57,7 +57,7 @@ test("Não deve criar uma conta de passageiro com email inválido", async functi
   const signupResponse = await axios.post("http://localhost:3000/signup", input);
   const signupData = signupResponse.data
   expect(signupResponse.status).toBe(422)
-  expect(signupData.message).toBe(-2)
+  expect(signupData.message).toBe("Invalid e-mail")
 });
 
 test("Não deve criar uma conta de motorista com placa inválida", async function () {
@@ -71,5 +71,5 @@ test("Não deve criar uma conta de motorista com placa inválida", async functio
   }
   const signupResponse = await axios.post("http://localhost:3000/signup", input);
   const signupData = signupResponse.data
-  expect(signupData.message).toBe(-5)
+  expect(signupData.message).toBe("Invalid car plate")
 });
