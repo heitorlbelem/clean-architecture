@@ -1,11 +1,19 @@
 import pgp from "pg-promise";
 
 export interface IAccountDAO {
+  getAccountById(id: string): Promise<any>;
   getUserByEmail(email: string): Promise<any>;
   saveUser(account: any): Promise<void>;
 }
 
 export class AccountDAODatabase implements IAccountDAO {
+  async getAccountById(id: string) {
+    const connection = pgp()("postgres://postgres:123456@localhost:5432/app");
+    const [accountData] = await connection.query("select * from ccca.account where id = $1", [id]);
+    await connection.$pool.end();
+    return accountData
+  }
+
   async getUserByEmail(email: string) {
     const connection = pgp()("postgres://postgres:123456@localhost:5432/app");
     const [accountData] = await connection.query("select * from ccca.account where email = $1", [email]);
@@ -25,6 +33,9 @@ export class AccountDAOInMemory implements IAccountDAO {
 
   constructor() {
     this.accounts = []
+  }
+  async getAccountById(id: string) {
+    await this.accounts.find(account => account.id === id)
   }
 
   async getUserByEmail(email: string): Promise<any> {
