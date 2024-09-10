@@ -19,3 +19,19 @@ export class AccountDAODatabase implements IAccountDAO {
     await connection.$pool.end();
   }
 }
+
+export class AccountDAOInMemory implements IAccountDAO {
+  accounts: any[]
+
+  constructor() {
+    this.accounts = []
+  }
+
+  async getUserByEmail(email: string): Promise<any> {
+    await this.accounts.find(account => account.email === email)
+  }
+
+  async saveUser(account: any): Promise<void> {
+    this.accounts.push(account)
+  }
+}
