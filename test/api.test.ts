@@ -73,3 +73,10 @@ test("Não deve criar uma conta de motorista com placa inválida", async functio
   const signupData = signupResponse.data
   expect(signupData.message).toBe("Invalid car plate")
 });
+
+test("Buscanod um account por ID inexistente", async function () {
+  const id = 'invalid_id'
+  const getAccountResponse = await axios.get(`http://localhost:3000/${id}`);
+  const getAccountData = getAccountResponse.data
+  expect(getAccountResponse.status).toBe(404)
+});

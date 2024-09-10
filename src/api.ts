@@ -20,14 +20,13 @@ app.post("/signup", async function (req, res) {
   }
 })
 
-app.get("/account/:id", async function (req, res) {
+app.get("/accounts/:id", async function (req, res) {
   const { id } = req.params;
-
   try {
     const response = await getAccount.execute(id)
-    res.json(response)
+    return res.json(response)
   } catch(e: any) {
-    res.status(404).json({ message: 'Not Found' })
+    return res.status(404).json({ message: 'Not found' })
   }
 })
 

@@ -7,6 +7,7 @@ export class GetAccount {
 
   async execute(id: string) {
     const [account] = await this.accountDAO.getAccountById(id)
+    if(!account) throw new Error("Not found")
     return account
   }
 }
