@@ -6,7 +6,6 @@ export async function signUp (input: any) {
 	const connection = pgp()("postgres://postgres:123456@localhost:5432/app");
 	const id = crypto.randomUUID();
 	const [accountData] = await connection.query("select * from ccca.account where email = $1", [input.email]);
-	console.log('oi')
 	if (accountData) { throw new Error("Account already exists") }
 	if (!input.name.match(/[a-zA-Z] [a-zA-Z]+/)) { throw new Error("Invalid name") }
 	if (!input.email.match(/^(.+)@(.+)$/)) { throw new Error("Invalid e-mail") }
